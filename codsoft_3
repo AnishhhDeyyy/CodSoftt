@@ -1,0 +1,73 @@
+public class atm {
+    static Scanner sc = new Scanner(System.in);
+    static int balance = 0;
+        public atm(int balance){
+            this.balance = balance;
+        }
+        public static void operation(int choice){
+            switch (choice){
+                case 1:
+                    System.out.println("How much amount you want to deposit");
+                    int dep = sc.nextInt();
+                    deposit(dep);
+                    break;
+                case 2:
+                    System.out.println("How much amount you want to withdraw");
+                    int wd = sc.nextInt();
+                    withdraw(wd);
+                    break;
+                case 3:
+                    viewBalance();
+                    break;
+                case 4:
+                    System.out.println("Thank you for receving our service.Visit Again!");
+                    System.exit(0);
+                    break;
+            }
+        }
+        public static void deposit(int amount){
+            balance = balance + amount;
+            System.out.println("Deposited Successfully");
+        }
+        public static void withdraw(int amount){
+            boolean b = checkBalance(balance);
+            if(b==true){
+                System.out.println("Withdrawn not possible! Insufficient Balance");
+            }else {
+                balance = balance - amount;
+                if (balance < 1000) {
+                    System.out.println("Withdrawn not possible");
+                    balance = balance + amount;
+                } else {
+                    System.out.println("Withdrawn Successfully");
+                }
+            }
+        }
+        public static void viewBalance(){
+            System.out.println("Your Current Balance is"+" "+balance);
+        }
+        public static boolean checkBalance(int balance){
+            if(balance<1000){
+                return true;
+            }else{
+                return false;
+            }
+        }
+}
+
+public class AtmInterface {
+    public static void main(String[] args) {
+        System.out.println("Welcome Codsoft Bank! Please select the option that you want");
+        System.out.println("1. DEPOSIT");
+        System.out.println("2. WITHDRAWL");
+        System.out.println("3. CHECKBALANCE");
+        System.out.println("4. EXIT");
+        Scanner sc = new Scanner(System.in);
+       atm ATM = new atm(1000);
+       while (true){
+           System.out.println("Enter Your Choice");
+           int option = sc.nextInt();
+           atm.operation(option);
+       }
+    }
+}
